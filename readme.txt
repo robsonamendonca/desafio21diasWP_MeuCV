@@ -1,4 +1,4 @@
-﻿=== Meu CV - WordPress Gallery ===
+﻿=== Meu CV - WordPress MeuCV ===
 Plugin Name: Meu CV (Desafio21Dias)
 Plugin URI: http://torneseumprogramador.com.br
 Description: Este é o plugin criado pelo Robson aluno muito dedicado que acorda as 5 horas da manhã para evoluir 1% ao dia, esses alunos assim como o Robson são referências para mim: Danilo Aparecido. 
@@ -33,17 +33,17 @@ http://torneseumprogramador.com.br
 **Features**
 
 * Responsive Meu CV Design
-* Gallery Column Layout
-* Gallery Customization
-* Lightbox Gallery
-* Video Gallery
-* Gallery Widget
-* Gallery Animation Effects
-* Gallery Hover Effects
+* MeuCV Column Layout
+* MeuCV Customization
+* Lightbox MeuCV
+* Video MeuCV
+* MeuCV Widget
+* MeuCV Animation Effects
+* MeuCV Hover Effects
 * Title Bar Settings
 * Video Settings
 * Many Customization Settings
-* Embed Gallery Into any your theme template
+* Embed MeuCV Into any your theme template
 * Standard WordPress Import and Export 
 * Cross Browser Compatibility
 
@@ -54,14 +54,14 @@ http://torneseumprogramador.com.br
 **Check Premium Plugin Demo - <a href="https://awplife.com/demo/meu-cv-premium/">Click Here</a>**
 
 == Screenshots ==
-1. Video Gallery Album
+1. Video MeuCV Album
 2. Animation Effect
 3. Stack effect
 4. Lightbox
 5. Lightbox Image Preview
 6. Overlay Effect
 7. Setting Page Images
-8. Gallery Setting Page
+8. MeuCV Setting Page
 9. Icon
 
 == Installation ==
