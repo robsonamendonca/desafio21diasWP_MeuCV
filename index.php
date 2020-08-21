@@ -1,10 +1,11 @@
+<?php echo "template!";?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Joe Bloggs - Curriculum Vitae</title>
+<title>Meu CV - Curriculum Vitae</title>
 
 <meta name="viewport" content="width=device-width"/>
-<meta name="description" content="The Curriculum Vitae of Joe Bloggs."/>
+<meta name="description" content="The Curriculum Vitae of Meu CV."/>
 <meta charset="UTF-8"> 
 
 <link type="text/css" rel="stylesheet" href="style.css">
@@ -18,11 +19,11 @@
 <div id="cv" class="instaFade">
 	<div class="mainDetails">
 		<div id="headshot" class="quickFade">
-			<img src="headshot.jpg" alt="Alan Smith" />
+			<img src="../headshot.jpg" alt="Alan Smith" />
 		</div>
 		
 		<div id="name">
-			<h1 class="quickFade delayTwo">Joe Bloggs</h1>
+			<h1 class="quickFade delayTwo">Meu CV</h1>
 			<h2 class="quickFade delayThree">Job Title</h2>
 		</div>
 		

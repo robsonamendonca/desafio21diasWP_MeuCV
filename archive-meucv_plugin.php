@@ -8,6 +8,8 @@
  * @subpackage Desafio21Dias
  * @since Desafio21Dias
  */
+$plugin_dir = plugins_url()."/meu-cv/"; 
+$foto = $plugin_dir."meu-cv.jpg";
 $url = get_stylesheet_directory_uri();
 $nome="";
 $profissao="";
@@ -34,7 +36,7 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
     'posts_per_page'=> 100,
     'paged'  => $paged,
-    'post_type'     => 'cv_habilidades'
+    'post_type'     => 'meucv_plugin'
 );
 $the_query_post = new WP_Query($args);
 	
@@ -51,7 +53,13 @@ $the_query_post = new WP_Query($args);
             $profissao=get_field('profissao') ? get_field('profissao') : "SUA PROFISSAO";
             $email=get_field('email') ? get_field('email') : "SEU EMAIL";
             $site =get_field('site') ? get_field('site') : "SEU SITE";
-			$celular=get_field('celular') ? get_field('celular') : "SEU CELULAR";
+            $celular=get_field('celular') ? get_field('celular') : "SEU CELULAR";
+            if ((function_exists ('has_post_thumbnail')) && (has_post_thumbnail())) 
+            {
+                $foto = get_the_post_thumbnail ($the_query_post->ID); 
+            } else {
+                $foto = "<img src='".$foto."' alt='Meu CV' />";
+            }              
         }
         if ( $secao == "Resumo Profissional"){
 			$resumo = get_field('descricao') ? get_field('descricao') : "SEU RESUMO";
@@ -110,15 +118,15 @@ endif;
 
 <head>
     <!-- O título -->
-    <title>Robson Mendonça - Curriculum Vitae</title>
+    <title><?php wp_title(''); ?></title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="<?php echo $url;?>/assets/img/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="<?php echo $plugin_dir;?>favicon.ico" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Curriculum Vitae de Robson Mendonça." />
+    <meta name="description" content="<?php wp_title(''); ?>" />
     <!-- O charset padrão -->
     <meta charset="<?php bloginfo('charset'); ?>">
 
-    <link type="text/css" rel="stylesheet" href="<?php echo $url;?>/assets/css/cv/style.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo $plugin_dir;?>style.css">
     <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
 
     <!--[if lt IE 9]>
@@ -135,7 +143,7 @@ endif;
     <div id="cv" class="instaFade">
         <div class="mainDetails">
             <div id="headshot" class="quickFade">
-                <img src="<?php echo $url;?>/assets/img/robson.png" alt="Robson Mendonça" />
+              <?php echo $foto;?>
             </div>
             <div id="name">
                 <h1 class="quickFade delayTwo"><?php echo $nome;?></h1>

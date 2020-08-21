@@ -8,6 +8,8 @@
  * @subpackage Desafio21Dias
  * @since Desafio21Dias
  */
+$plugin_dir = plugins_url()."/meu-cv/"; 
+$foto = $plugin_dir."meu-cv.jpg";
 $url = get_stylesheet_directory_uri();
 $nome="";
 $profissao="";
@@ -42,7 +44,13 @@ while ( have_posts() ) :
             $profissao=get_field('profissao') ? get_field('profissao') : "SUA PROFISSAO";
             $email=get_field('email') ? get_field('email') : "SEU EMAIL";
             $site =get_field('site') ? get_field('site') : "SEU SITE";
-			$celular=get_field('celular') ? get_field('celular') : "SEU CELULAR";
+            $celular=get_field('celular') ? get_field('celular') : "SEU CELULAR";
+            if ((function_exists ('has_post_thumbnail')) && (has_post_thumbnail())) 
+            {
+                $foto = get_the_post_thumbnail ($the_query_post->ID); 
+            } else {
+                $foto = "<img src='".$foto."' alt='Meu CV' />";
+            }               
         }
         if ( $secao == "Resumo Profissional"){
 			$resumo = get_field('descricao') ? get_field('descricao') : "SEU RESUMO";
@@ -97,17 +105,19 @@ else:?>
 endif;   
 ?>
 <!DOCTYPE html>
-<html>
+<html class="no-js" <?php language_attributes(); ?>>
 
 <head>
-    <title>Robson Mendonça - Curriculum Vitae</title>
+    <!-- O título -->
+    <title><?php wp_title(''); ?></title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="<?php echo $url;?>/assets/img/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="<?php echo $plugin_dir;?>favicon.ico" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Curriculum Vitae de Robson Mendonça." />
-    <meta charset="UTF-8">
+    <meta name="description" content="<?php wp_title(''); ?>" />
+    <!-- O charset padrão -->
+    <meta charset="<?php bloginfo('charset'); ?>">
 
-    <link type="text/css" rel="stylesheet" href="<?php echo $url;?>/assets/css/cv/style.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo $plugin_dir;?>style.css">
     <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
 
     <!--[if lt IE 9]>
@@ -124,18 +134,18 @@ endif;
     <div id="cv" class="instaFade">
         <div class="mainDetails">
             <div id="headshot" class="quickFade">
-                <img src="<?php echo $url;?>/assets/img/robson.png" alt="Robson Mendonça" />
+                <?php echo $foto;?>
             </div>
             <div id="name">
-                <h1 class="quickFade delayTwo"><?php echo $secao;?></h1>
-                <h2 class="quickFade delayThree"><?php the_title();?></h2>
+                <h1 class="quickFade delayTwo"><?php echo $nome;?></h1>
+                <h2 class="quickFade delayThree"><?php echo $profissao;?></h2>
             </div>
 
             <div id="contactDetails" class="quickFade delayFour">
                 <ul>
-                    <li><a href="#" onclick="javascript:window.history.go(-1);">
-                            << Voltar </a>
-                    </li>
+                    <li>e: <a href="mailto:<?php echo $email;?>" target="_blank"><?php echo $email;?></a></li>
+                    <li>w: <a href="<?php echo $site;?>"><?php echo $site;?></a></li>
+                    <li>m: <?php echo $celular;?></li>
                 </ul>
             </div>
             <div class="clear"></div>

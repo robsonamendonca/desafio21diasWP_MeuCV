@@ -1,14 +1,16 @@
 <?php
 /*
+Meu CV (Desafio21Dias)
+
 Plugin Name: Meu CV (Desafio21Dias)
 Plugin URI: http://torneseumprogramador.com.br
 Description: Este é o plugin criado pelo Robson aluno muito dedicado que acorda as 5 horas da manhã para evoluir 1% ao dia, esses alunos assim como o Robson são referências para mim: Danilo Aparecido. 
 Author: Alunos da Comunidade Torne-se um Programador
-Author URI: http://torneseumprogramador.com.br
+Author URI:  https://github.com/robsonamendonca/desafio21diasWP_MeuCV/
 Version: 0.0.1
-Text Domain: desafio21dias
+Text Domain: meu-cv
 Tags: desafio,21Dias,tornese,programador, robsonamendonca, robson, wordpress, php, torneseumprogramador, programador
-
+Domain Path: /languages
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,8 +26,20 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
   class MeuCV {
     public function __construct() {
       add_action( 'init', Array($this,'create_custom_post_type_modulo') );
+      add_action( 'admin_menu', array( $this, 'meu_cv_submenu' ), 101 );
     }
-  
+
+    /* Add MeuCv menu*/
+    public function meu_cv_submenu() {      
+      add_submenu_page( 'edit.php?post_type=meucv_plugin', __( 'Visualizar CV', 'text_domain' ), __( 'Visualizar CV', 'text_domain' ), 'administrator', 'pre-visualizar', __CLASS__ .'::menu_page_output' ); 
+    }
+
+    public static function menu_page_output() {
+      //Menu Page output code      
+      echo '<div class="update-nag"> Meu CV está disponível! Atualize seu CV agora.  </div>';
+      require('include/docs.php');      
+    }    
+
     public function create_custom_post_type_modulo() {
       $labels = array(
         'name'                  => _x( 'Meu CV', 'meucv_plugin', 'text_domain' ),
@@ -61,6 +75,26 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
       #double check
       $this->create_custom_post_type_modulo();
   
+      //copiar arquivos de template
+      $plugin_archive_dir = plugin_dir_path( __FILE__ ) . 'archive-meucv_plugin.php';
+      $theme_archive_dir = get_stylesheet_directory() . '/archive-meucv_plugin.php';
+      //var_dump($plugin_archive_dir);
+      //var_dump($theme_archive_dir);
+      //archive-meucv_plugin.php 
+      if(!file_exists($theme_archive_dir)){
+        if (!copy($plugin_archive_dir, $theme_archive_dir)) {
+          die ("Falha na Importação do arquivo: $plugin_archive_dir para $theme_archive_dir...\n");
+        }  
+      }
+      $plugin_single_dir = plugin_dir_path( __FILE__ ) . 'single-meucv_plugin.php';
+      $theme_single_dir = get_stylesheet_directory() . '/single-meucv_plugin.php';      
+      //single-meu-cv
+      if(!file_exists($theme_single_dir)){
+        if (!copy($plugin_single_dir, $theme_single_dir)) {
+          die ("Falha na Importação do arquivo: $plugin_single_dir para $theme_single_dir...\n");
+        } 
+      }
+
       flush_rewrite_rules();
   
       # Se vc preciar rodar algo ao iniciar
@@ -79,6 +113,7 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
       $wpdb->get_results("INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES (NULL, '1', '2020-08-16 19:10:34', '2020-08-16 22:10:34', 'a:10:{s:4:\"type\";s:4:\"text\";s:12:\"instructions\";s:18:\"Informe seu e-mail\";s:8:\"required\";i:0;s:17:\"conditional_logic\";a:1:{i:0;a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_5f39a598f7ea8\";s:8:\"operator\";s:10:\"==contains\";s:5:\"value\";s:14:\"Dados Pessoais\";}}}s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:9:\"maxlength\";s:0:\"\";}', 'E-mail', 'email', 'publish', 'closed', 'closed', '', 'field_5f39aebb1b924', '', '', '2020-08-16 20:13:21', '2020-08-16 23:13:21', '', '".$pp."', '#', '7', 'acf-field', '', '0')");
       $wpdb->get_results("INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES (NULL, '1', '2020-08-16 19:11:25', '2020-08-16 22:11:25', 'a:10:{s:4:\"type\";s:4:\"text\";s:12:\"instructions\";s:39:\"Informe seu site / blog / perfil online\";s:8:\"required\";i:0;s:17:\"conditional_logic\";a:1:{i:0;a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_5f39a598f7ea8\";s:8:\"operator\";s:10:\"==contains\";s:5:\"value\";s:14:\"Dados Pessoais\";}}}s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:9:\"maxlength\";s:0:\"\";}', 'Site', 'site', 'publish', 'closed', 'closed', '', 'field_5f39aeec58978', '', '', '2020-08-16 20:13:21', '2020-08-16 23:13:21', '', '".$pp."', '#', '8', 'acf-field', '', '0')");
       $wpdb->get_results("INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES (NULL, '1', '2020-08-16 19:12:02', '2020-08-16 22:12:02', 'a:10:{s:4:\"type\";s:4:\"text\";s:12:\"instructions\";s:41:\"Informe seu telefone / celular / whatsapp\";s:8:\"required\";i:0;s:17:\"conditional_logic\";a:1:{i:0;a:1:{i:0;a:3:{s:5:\"field\";s:19:\"field_5f39a598f7ea8\";s:8:\"operator\";s:10:\"==contains\";s:5:\"value\";s:14:\"Dados Pessoais\";}}}s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:13:\"default_value\";s:0:\"\";s:11:\"placeholder\";s:0:\"\";s:7:\"prepend\";s:0:\"\";s:6:\"append\";s:0:\"\";s:9:\"maxlength\";s:0:\"\";}', 'Celular', 'celular', 'publish', 'closed', 'closed', '', 'field_5f39af124198c', '', '', '2020-08-16 20:13:21', '2020-08-16 23:13:21', '', '".$pp."', '#', '9', 'acf-field', '', '0')");                                                                                                                                                          
+
 
     }
   
@@ -111,6 +146,17 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
       $wpdb->get_results("delete from wp_posts where post_title='novos campos meu cv';");
       //novos campos meu cv -> acf (campos)
       $wpdb->get_results("delete from wp_posts where post_parent=".$pp[0].";");
+
+      $theme_archive_dir = get_stylesheet_directory() . '/archive-meucv_plugin.php';     
+      $theme_single_dir = get_stylesheet_directory() . '/single-meucv_plugin.php';             
+      // Use unlink() function to delete a file  
+      if (!unlink($theme_archive_dir)) {  
+        die ("$theme_archive_dir cannot be deleted due to an error");  
+      }       
+      if (!unlink($theme_single_dir)) {  
+        die ("$theme_single_dir cannot be deleted due to an error");  
+      }      
+
     }
   }
   
