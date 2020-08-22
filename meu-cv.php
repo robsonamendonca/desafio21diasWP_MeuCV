@@ -31,7 +31,7 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
 
     /* Add MeuCv menu*/
     public function meu_cv_submenu() {      
-      add_submenu_page( 'edit.php?post_type=meucv_plugin', __( 'Visualizar CV', 'text_domain' ), __( 'Visualizar CV', 'text_domain' ), 'administrator', 'pre-visualizar', __CLASS__ .'::menu_page_output' ); 
+      add_submenu_page( 'edit.php?post_type=meucv_plugin', __( 'Modelo CV', 'text_domain' ), __( 'Modelo CV', 'text_domain' ), 'administrator', 'pre-visualizar', __CLASS__ .'::menu_page_output' ); 
     }
 
     public static function menu_page_output() {
@@ -78,9 +78,6 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
       //copiar arquivos de template
       $plugin_archive_dir = plugin_dir_path( __FILE__ ) . 'archive-meucv_plugin.php';
       $theme_archive_dir = get_stylesheet_directory() . '/archive-meucv_plugin.php';
-      //var_dump($plugin_archive_dir);
-      //var_dump($theme_archive_dir);
-      //archive-meucv_plugin.php 
       if(!file_exists($theme_archive_dir)){
         if (!copy($plugin_archive_dir, $theme_archive_dir)) {
           die ("Falha na Importação do arquivo: $plugin_archive_dir para $theme_archive_dir...\n");
@@ -94,6 +91,31 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
           die ("Falha na Importação do arquivo: $plugin_single_dir para $theme_single_dir...\n");
         } 
       }
+
+      $plugin_css_dir = plugin_dir_path( __FILE__ ) . 'meu-cv.css';
+      $theme_css_dir = get_stylesheet_directory() . '/meu-cv.css';      
+      //single-meu-cv
+      if(!file_exists($theme_css_dir)){
+        if (!copy($plugin_css_dir, $theme_css_dir)) {
+          die ("Falha na Importação do arquivo: $plugin_css_dir para $theme_css_dir...\n");
+        } 
+      }
+      $plugin_ico_dir = plugin_dir_path( __FILE__ ) . 'meu-cv.ico';
+      $theme_ico_dir = get_stylesheet_directory() . '/meu-cv.ico';
+      if(!file_exists($theme_ico_dir)){
+        if (!copy($plugin_ico_dir, $theme_ico_dir)) {
+          die ("Falha na Importação do arquivo: $plugin_ico_dir para $theme_ico_dir...\n");
+        }  
+      }
+
+      $plugin_jpg_dir = plugin_dir_path( __FILE__ ) . 'meu-cv.jpg';
+      $theme_jpg_dir = get_stylesheet_directory() . '/meu-cv.jpg';
+      if(!file_exists($theme_jpg_dir)){
+        if (!copy($plugin_jpg_dir, $theme_jpg_dir)) {
+          die ("Falha na Importação do arquivo: $plugin_jpg_dir para $theme_jpg_dir...\n");
+        }  
+      }
+         
 
       flush_rewrite_rules();
   
@@ -125,7 +147,7 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
       $table_name = $wpdb->prefix . 'posts';     
       $field_name = 'ID';
       $where = "novos campos meu cv";     
-      $prepared_statement = $wpdb->prepare( "SELECT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         {$field_name} FROM {$table_name} WHERE  post_status = 'publish' and post_title = '%s'", $where );
+      $prepared_statement = $wpdb->prepare( "SELECT   {$field_name} FROM {$table_name} WHERE  post_status = 'publish' and post_title = '%s'", $where );
       $pp = $wpdb->get_col( $prepared_statement );    
       //novos campos meu cv -> acf (grupo)
       $wpdb->get_results("delete from wp_posts where post_title='novos campos meu cv';");
@@ -156,6 +178,21 @@ if ( !is_plugin_active( 'advanced-custom-fields/acf.php' ) ) {
       if (!unlink($theme_single_dir)) {  
         die ("$theme_single_dir cannot be deleted due to an error");  
       }      
+
+      $theme_css_dir = get_stylesheet_directory() . '/meu-cv.css';     
+      $theme_ico_dir = get_stylesheet_directory() . '/meu-cv.ico';             
+      // Use unlink() function to delete a file  
+      if (!unlink($theme_css_dir)) {  
+        die ("$theme_css_dir cannot be deleted due to an error");  
+      }       
+      if (!unlink($theme_ico_dir)) {  
+        die ("$theme_ico_dir cannot be deleted due to an error");  
+      } 
+      $theme_jpg_dir = get_stylesheet_directory() . '/meu-cv.jpg';     
+      // Use unlink() function to delete a file  
+      if (!unlink($theme_jpg_dir)) {  
+        die ("$theme_jpg_dir cannot be deleted due to an error");  
+      }       
 
     }
   }
