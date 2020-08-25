@@ -8,12 +8,11 @@
 <meta name="description" content="The Curriculum Vitae of Meu CV."/>
 <meta charset="UTF-8"> 
 
-<link type="text/css" rel="stylesheet" href="style.css">
-<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+<?php //css
+    wp_enqueue_style('meu-cv-css', get_stylesheet_directory_uri().'/meu-cv.css');    
+    wp_enqueue_style('meu-cv-css','http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300');    
+?>
 
-<!--[if lt IE 9]>
-<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
 </head>
 <body id="top">
 <div id="cv" class="instaFade">
@@ -124,14 +123,6 @@
 		
 	</div>
 </div>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-3753241-1");
-pageTracker._initData();
-pageTracker._trackPageview();
-</script>
+
 </body>
 </html>

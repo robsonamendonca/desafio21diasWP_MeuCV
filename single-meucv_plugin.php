@@ -8,9 +8,7 @@
  * @subpackage Desafio21Dias
  * @since Desafio21Dias
  */
-$plugin_dir = plugins_url()."/meu-cv/"; 
-$foto = $plugin_dir."meu-cv.jpg";
-$url = get_stylesheet_directory_uri();
+$foto = get_stylesheet_directory_uri()."/meu-cv.jpg";
 $nome="";
 $profissao="";
 $email="";
@@ -47,7 +45,7 @@ while ( have_posts() ) :
             $celular=get_field('celular') ? get_field('celular') : "SEU CELULAR";
             if ((function_exists ('has_post_thumbnail')) && (has_post_thumbnail())) 
             {
-                $foto = get_the_post_thumbnail ($the_query_post->ID); 
+                $foto = get_the_post_thumbnail (get_the_ID()); 
             } else {
                 $foto = "<img src='".$foto."' alt='Meu CV' />";
             }               
@@ -110,19 +108,15 @@ endif;
 <head>
     <!-- O título -->
     <title><?php wp_title(''); ?></title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="<?php echo $plugin_dir;?>favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="<?php wp_title(''); ?>" />
     <!-- O charset padrão -->
     <meta charset="<?php bloginfo('charset'); ?>">
 
-    <link type="text/css" rel="stylesheet" href="<?php echo $plugin_dir;?>style.css">
-    <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
-
-    <!--[if lt IE 9]>
-<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+    <?php //css
+    wp_enqueue_style('meu-cv-css', get_stylesheet_directory_uri().'/meu-cv.css');    
+    wp_enqueue_style('meu-cv-css','http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300');    
+    ?>
     <!-- 
 	O restante do cabeçalho que virá dentro da head. 
 	Criado automaticamente pelo WordPress. 
@@ -205,16 +199,6 @@ endif;
 
         </div>
     </div>
-    <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost +
-        "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
-    var pageTracker = _gat._getTracker("UA-3753241-1");
-    pageTracker._initData();
-    pageTracker._trackPageview();
-    </script>
 
     <!-- 
 O restante do rodapé que virá dentro do body. 
